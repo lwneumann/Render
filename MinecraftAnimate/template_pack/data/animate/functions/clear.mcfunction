@@ -1,0 +1,1 @@
+execute at @e[tag=projector] run place template clear

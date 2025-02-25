@@ -2,6 +2,7 @@ import os
 import shutil
 
 from MinecraftAnimate.config import *
+from MinecraftAnimate.nbtmaker import make_air
 
 """
 This needs to make
@@ -54,22 +55,29 @@ def make_json(name, values=[]):
     return
 
 
-def populate_pack(fps, name_space=NAMESPACE):
-    path = f"./{name_space}/data/animate/functions/"
+def populate_pack(fps, size, name_space=NAMESPACE):
+    # Make path and functions
+    function_path = f"./{name_space}/data/animate/functions/"
 
     spf = max(round(1 / fps, FPS_FIG), MIN_SPF)
     if spf == MIN_SPF:
         print("- ! Capping FPS at 40 (0.025 spf) !")
     # Setup
     content = f"""
-# Places frames and increments frame count. Scheduled at FPS?
+# Places frames and increments frame count. Scheduled at FPS
 execute store result storage minecraft:frames input.frame int 1 run scoreboard players get @e[tag=projector,limit=1] frame_count
 function animate:place_frame with storage minecraft:frames input
 execute at @e[tag=projector] run scoreboard players add @e[tag=projector] frame_count 1
 
 schedule function animate:play {spf}s"""
 
-    make_mcfunct(content, path + "play")
+    make_mcfunct(content, function_path + "play")
     print(f"{'-Pack setup at': >79}|")
-    print(f" {path+'play': >78}|")
+
+    # Add blank structure
+    structure_path = f"./{name_space}/data/animate/structures/"
+    make_air(size, structure_path)
+    print(f"{'-Added reset structure': >79}|")
+
+    print(f" {function_path+'play': >78}|")
     return

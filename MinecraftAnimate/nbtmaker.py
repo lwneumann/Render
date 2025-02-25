@@ -13,3 +13,8 @@ def make_nbt(struct, name):
 
     structure.get_nbt().write_file(filename=f"{name}.nbt")
     return
+
+
+def make_air(size, path):
+    make_nbt([[['air' for z in range(len(size[1]))] for x in range(len(size[0]))] for y in range(len(size))], path+'clear')
+    return

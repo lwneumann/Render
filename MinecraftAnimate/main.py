@@ -19,7 +19,7 @@ def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_bl
     print(f"{'--Preparing Datapack': >79}|")
     # - Make new datapack off template
     make_new_pack("./" + pack_name)
-    populate_pack(FPS, pack_name)
+    populate_pack(FPS, size, pack_name)
 
     # Get Structures TODO
     past_colors = {}
