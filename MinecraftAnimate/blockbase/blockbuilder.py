@@ -8,7 +8,7 @@ def dist(c1, c2):
 
 
 def get_block_from_color(color):
-    if color == None:
+    if color == None or sum(color) == 0:
         return "structure_void"
 
     block = None

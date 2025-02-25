@@ -8,9 +8,9 @@ from MinecraftAnimate.datapack_maker import make_new_pack, populate_pack
 from MinecraftAnimate.config import *
 
 
-def render_datapack(scene, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_blockname=False, size=SIZE):
+def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_blockname=False, size=SIZE):
     total_frames = fps * seconds
-    structure_path = f"./{NAMESPACE}/data/animate/structures/"
+    structure_path = f"./{pack_name}/data/animate/structures/"
     # Get time
     print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):-<76}-]\n')
 
@@ -21,16 +21,19 @@ def render_datapack(scene, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_b
     populate_pack(FPS, pack_name)
 
     # Get Structures TODO
+    past_colors = {}
     print('\n---Rendering Structures')
     with alive_bar(total_frames) as bar:
         for f in range(total_frames):
-            state = scene.step()
+            state = step(f)
             # Check if input is alreay in blocknames or needs to be color mapped
             if uses_blockname:
                 frame = state
             else:
-                frame = blockify(state)
+                frame, past_colors = blockify(state, past_colors)
+            # Make structure
             make_nbt(frame, name=structure_path+str(f))
+
             bar()
 
     print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):->76}-]\n')

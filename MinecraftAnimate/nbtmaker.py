@@ -2,7 +2,7 @@ from MinecraftAnimate.config import *
 from MinecraftAnimate.nbt_structure_utils import NBTStructure, Vector, BlockData
 
 
-def make_nbt(struct, name=DEFAULT_STRUCT_NAME):
+def make_nbt(struct, name):
     structure = NBTStructure()
 
     for y in range(len(struct)):

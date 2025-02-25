@@ -72,12 +72,12 @@ def render_video(step, frames=90, fps=30, mode="RGB", video_folder="."):
     print('|' + ' '*78 + '|')
     print(f'{f"-Rendering {frames} frames": <79}|')
 
-    p = None
+    last_frame = None
 
     with alive_bar(frames) as bar:
         for i in range(frames):
-            p = step(p, i)
-            array_to_png(p, i, mode=mode)
+            last_frame = step(i, last_frame)
+            array_to_png(last_frame, i, mode=mode)
             bar()
 
     print('|' + ' '*78 + '|')

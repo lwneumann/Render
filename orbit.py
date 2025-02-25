@@ -86,7 +86,7 @@ class BodSystem:
         ]
         return
 
-    def step(self, prior_frame=None, frame_count=None):
+    def step(self, frame_count=None, prior_frame=None):
         # frame = prior_frame
         frame = None
         if frame is None:
