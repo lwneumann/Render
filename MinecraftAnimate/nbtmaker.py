@@ -8,7 +8,8 @@ def make_nbt(struct, name):
     for y in range(len(struct)):
         for x in range(len(struct[0])):
             for z in range(len(struct[0][0])):
-                structure.set_block(Vector(x, y, z), BlockData(struct[y][x][z]))
+                if struct[y][x][z] != "structure_void":
+                    structure.set_block(Vector(x, y, z), BlockData(struct[y][x][z]))
 
     structure.get_nbt().write_file(filename=f"{name}.nbt")
     return

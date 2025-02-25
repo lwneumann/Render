@@ -12,17 +12,19 @@ def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_bl
     total_frames = fps * seconds
     structure_path = f"./{pack_name}/data/animate/structures/"
     # Get time
-    print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):-<76}-]\n')
+    print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):-<76}-]')
+    print('|' + ' '*78 + '|')
 
     # Make Pack
-    print("---Preparing Datapack")
+    print(f"{'--Preparing Datapack': >79}|")
     # - Make new datapack off template
     make_new_pack("./" + pack_name)
     populate_pack(FPS, pack_name)
 
     # Get Structures TODO
     past_colors = {}
-    print('\n---Rendering Structures')
+    print('|' + ' '*78 + '|')
+    print(f"{'--Rendering Structures': >79}|")
     with alive_bar(total_frames) as bar:
         for f in range(total_frames):
             state = step(f)
@@ -36,7 +38,8 @@ def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_bl
 
             bar()
 
-    print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):->76}-]\n')
+    print('|' + ' '*78 + '|')
+    print(f'[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):->76}-]\n')
     return
 
 

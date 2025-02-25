@@ -70,5 +70,6 @@ execute at @e[tag=projector] run scoreboard players add @e[tag=projector] frame_
 schedule function animate:play {spf}s"""
 
     make_mcfunct(content, path + "play")
-    print("-Pack setup at\n", path+"play")
+    print(f"{'-Pack setup at': >79}|")
+    print(f" {path+'play': >78}|")
     return
