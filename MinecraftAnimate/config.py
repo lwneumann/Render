@@ -21,7 +21,6 @@ animate is always namespace, pack name can vary and mcmeta can change
 NAMESPACE = 'AnimateTest'
 FPS = 30
 SECONDS = 5
-TOTAL_FRAMES = FPS * SECONDS
 MIN_SPF = 0.025
 FPS_FIG = 3
 
@@ -30,8 +29,8 @@ SIZE = 10, 10, 10
 
 # # File Settings
 STRUCTURE_FOLDER_PATH = f"./{NAMESPACE}/data/animate/structures/"
-TEST_FOLDER_NAME = "./testStructs/"
-BASE_PACK = "template_pack"
+TEST_FOLDER_NAME = "./MinecraftAnimate/testStructs/"
+BASE_PACK = "/MinecraftAnimate/template_pack"
 
 # # Structures
 DEFAULT_STRUCT_NAME = "test"

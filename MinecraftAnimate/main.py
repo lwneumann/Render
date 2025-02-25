@@ -7,7 +7,8 @@ import datapack_maker
 from config import *
 
 
-def render_datapack(scene, uses_blockname=False, size=SIZE):
+def render_datapack(scene, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_blockname=False, size=SIZE):
+    total_frames = fps * seconds
     # Get time
     print(f'\n[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):-<76}-]\n')
 
@@ -19,9 +20,9 @@ def render_datapack(scene, uses_blockname=False, size=SIZE):
 
     # Get Structures
     print('\n---Rendering Structures')
-    with alive_bar(TOTAL_FRAMES) as bar:
-        for f in range(TOTAL_FRAMES):
-            state = scene.tick()
+    with alive_bar(total_frames) as bar:
+        for f in range(total_frames):
+            state = scene.step()
             # Check if input is alreay in blocknames or needs to be color mapped
             if uses_blockname:
                 frame = state
