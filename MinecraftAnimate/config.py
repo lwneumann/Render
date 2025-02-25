@@ -28,7 +28,6 @@ FPS_FIG = 3
 SIZE = 10, 10, 10
 
 # # File Settings
-STRUCTURE_FOLDER_PATH = f"./{NAMESPACE}/data/animate/structures/"
 TEST_FOLDER_NAME = "./MinecraftAnimate/testStructs/"
 BASE_PACK = "/MinecraftAnimate/template_pack"
 

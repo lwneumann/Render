@@ -1,8 +1,9 @@
 from random import random
-import FileAnimate
+import FileAnimate, MinecraftAnimate
 from math import cos, sin, pi
 
 import FileAnimate.file_maker
+import MinecraftAnimate.main
 
 
 class Body:
@@ -108,9 +109,10 @@ class BodSystem:
 
 
 if __name__ == "__main__":
-    s = BodSystem([500, 500])
+    size = [500, 500]
+    s = BodSystem(size)
     FPS = 30
     SECONDS = 10
     FRAMES = FPS * SECONDS
-
-    FileAnimate.file_maker.render_video(s.step, frames=FRAMES, fps=FPS, video_folder="TestOutputs")
+    # FileAnimate.file_maker.render_video(s.step, frames=FRAMES, fps=FPS, video_folder="TestOutputs")
+    MinecraftAnimate.main.render_datapack(s, pack_name="OrbitPack", fps=FPS, seconds=SECONDS, uses_blockname=False, size=size)

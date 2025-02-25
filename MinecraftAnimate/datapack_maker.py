@@ -54,7 +54,9 @@ def make_json(name, values=[]):
     return
 
 
-def make_play(fps, path=f".MinecraftAnimate/{NAMESPACE}/data/animate/functions/"):
+def make_play(fps, name_space=NAMESPACE):
+    path = f"./{name_space}/data/animate/functions/"
+
     spf = max(round(1 / fps, FPS_FIG), MIN_SPF)
     if spf == MIN_SPF:
         print("- ! Capping FPS at 40 (0.025 spf) !")
