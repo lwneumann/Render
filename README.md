@@ -2,7 +2,7 @@ This is to play with procedurally rendering things using python. Mostly as an ex
 
 # Specifics
 ## FileAnimate
-~[ex](https://github.com/lwneumann/Render/blob/main/TestOutputs/example.gif)
+![ex](https://github.com/lwneumann/Render/blob/main/TestOutputs/example.gif)
 This renders files into pngs and mp4s.
 
 ## MinecraftAnimate
