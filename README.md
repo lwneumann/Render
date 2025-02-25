@@ -1,7 +1,5 @@
 This is to play with procedurally rendering things using python. Mostly as an excuse to use math :p
 
-~[til](".\FileAnimate\videos\test250216-1858-sin.mp4")
-
 # Specifics
 ## FileAnimate
 This renders files into pngs and mp4s.
