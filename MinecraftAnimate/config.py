@@ -29,7 +29,7 @@ SIZE = 10, 10, 10
 
 # # File Settings
 TEST_FOLDER_NAME = "./MinecraftAnimate/testStructs/"
-BASE_PACK = "/MinecraftAnimate/template_pack"
+BASE_PACK = "./MinecraftAnimate/template_pack"
 
 # # Structures
 DEFAULT_STRUCT_NAME = "test"

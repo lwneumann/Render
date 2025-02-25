@@ -1,4 +1,4 @@
-from blockbase.blockcolors import *
+from MinecraftAnimate.blockbase.blockcolors import *
 
 
 def dist(c1, c2):

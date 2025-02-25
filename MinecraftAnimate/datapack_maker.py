@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from config import *
+from MinecraftAnimate.config import *
 
 """
 This needs to make
@@ -54,7 +54,7 @@ def make_json(name, values=[]):
     return
 
 
-def make_play(fps, name_space=NAMESPACE):
+def populate_pack(fps, name_space=NAMESPACE):
     path = f"./{name_space}/data/animate/functions/"
 
     spf = max(round(1 / fps, FPS_FIG), MIN_SPF)

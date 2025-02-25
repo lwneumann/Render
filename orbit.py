@@ -115,4 +115,4 @@ if __name__ == "__main__":
     SECONDS = 10
     FRAMES = FPS * SECONDS
     # FileAnimate.file_maker.render_video(s.step, frames=FRAMES, fps=FPS, video_folder="TestOutputs")
-    MinecraftAnimate.main.render_datapack(s, pack_name="OrbitPack", fps=FPS, seconds=SECONDS, uses_blockname=False, size=size)
+    MinecraftAnimate.main.render_datapack(s.step, pack_name="OrbitPack", fps=FPS, seconds=SECONDS, uses_blockname=False, size=size)
