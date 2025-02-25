@@ -8,5 +8,6 @@ This renders files into pngs and mp4s.
 ## MinecraftAnimate
 This renders frames into Minecraft. [Here is a similar project I did a while ago that used videos](https://www.youtube.com/watch?v=uOspgfu_BaU). This version is to move to 3d rendering.
 
-## Useage
+## (Vauge) Useage
 Give a class with a `step()` function that returns a frame.
+This is still a work in progress so I won't write too much as any specific is likely to change.
