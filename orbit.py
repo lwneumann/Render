@@ -3,7 +3,10 @@ import FileAnimate, MinecraftAnimate
 from math import cos, sin, pi
 
 import FileAnimate.file_maker
+import MinecraftAnimate.blockbase
+import MinecraftAnimate.blockbase.blockbuilder
 import MinecraftAnimate.main
+import MinecraftAnimate.nbtmaker
 
 
 class Body:
@@ -15,11 +18,11 @@ class Body:
         # Body Position
         self.pos = pos
         # Body Radius
-        self.radius = radius
+        self.radius = max(radius, 1)
         # Size is window size used to give a centered output pos
         self.size = size
         # Orbit Radius
-        self.orbit_r = orb_r
+        self.orbit_r = max(orb_r, 1)
         self.color = color
         # Does it move
         self.moves = moves
@@ -60,7 +63,8 @@ class Body:
         return
 
     def __repr__(self):
-        return self.pos
+        return (f"Body(pos={self.pos}, radius={self.radius}, size={self.size}, orbit_r={self.orbit_r}, color={self.color}, moves={self.moves}, dir={self.dir}, theta={self.theta}, phi={self.phi})")
+
 
     def dist(self, other_pos):
         # eulic dist
@@ -78,41 +82,56 @@ class BodSystem:
         # Probably generalize later but for now explicitly constructing system.
         self.bodies = [
             # Center body
-            Body([size[0]/2, size[1]/2, size[2]/2], 40, size, 0, color=(253, 184, 19), moves=False),
+            Body([size[0]/2, size[1]/2, size[2]/2], int(size[0]/3), size, 0, color=(253, 184, 19), moves=False),
             # Orbiter
-            Body([0, 0, 0], 20, size, 100, phi=0),
+            Body([0, 0, 0], int(size[0]/10), size, int(size[0]/2), phi=0),
             # Smaller orbiter
-            Body([0, 0, 0], 10, size, 200, color=(100, 255, 100), dir=-1, theta=3/2*pi, phi=0)
+            Body([0, 0, 0], int(size[0]/20), size, int(size[0] * 0.75), color=(100, 255, 100), dir=-1, theta=3/2*pi, phi=0)
         ]
         return
 
-    def step(self, frame_count=None, prior_frame=None):
-        # frame = prior_frame
-        frame = None
+    def step(self, frame_count=0, prior_frame=None):
+        # Take previous frame to erase prior movements
+        frame = prior_frame
+        
+        # Make sure its real thou
         if frame is None:
-            frame = [[ (0, 0, 0) for c in range(self.size[0])] for r in range(self.size[1])]
+            frame = [[[ (0, 0, 0) for z in range(self.size[2])] for x in range(self.size[1])] for y in range(size[0])]
+        else:
+            # Erase past movement
+            # y x z
+            for y in range(len(frame)):
+                for x in range(len(frame[0])):
+                    for z in range(len(frame[1])):
+                        if frame[y][x][z] != (0, 0, 0):
+                            frame[y][x][z] = None
 
+        # Move bods
         for bod in self.bodies:
             if bod.moves:
                 # Defaults theta and phi to be angles
                 bod.move(frame_count)
 
-        self.bodies.sort(key=lambda bod: bod.pos[2])
+        # self.bodies.sort(key=lambda bod: bod.pos[2])
 
+        # Get Frame
         for bod in self.bodies:
-            for x in range(int(bod.pos[0]) - bod.radius, int(bod.pos[0]) + bod.radius+1):
-                for y in range(int(bod.pos[1]) - bod.radius, int(bod.pos[1]) + bod.radius+1):
-                    if bod.dist((x, y)) < bod.radius:
-                        frame[y][x] = bod.color
+            for x in range(max(int(bod.pos[0]) - bod.radius, 0), min(int(bod.pos[0]) + bod.radius+1, size[0]-1)):
+                for y in range(max(int(bod.pos[1]) - bod.radius, 0), min(int(bod.pos[1]) + bod.radius+1, size[1]-1)):
+                    for z in range(max(int(bod.pos[2]) - bod.radius, 0), min(int(bod.pos[2]) + bod.radius+1, size[2]-1)):
+                        if bod.dist((x, y, z)) <= bod.radius:
+                            frame[y][x][z] = bod.color
 
         return frame
 
 
 if __name__ == "__main__":
-    size = [500, 500]
+    size = [10 for _ in range(3)]
     s = BodSystem(size)
     FPS = 30
     SECONDS = 10
     FRAMES = FPS * SECONDS
     # FileAnimate.file_maker.render_video(s.step, frames=FRAMES, fps=FPS, video_folder="TestOutputs")
-    MinecraftAnimate.main.render_datapack(s.step, pack_name="OrbitPack", fps=FPS, seconds=SECONDS, uses_blockname=False, size=size)
+    # MinecraftAnimate.main.render_datapack(s.step, pack_name="OrbitPack", fps=FPS, seconds=SECONDS, uses_blockname=False, size=size)
+    f, c = MinecraftAnimate.blockbase.blockbuilder.blockify(s.step())
+    MinecraftAnimate.nbtmaker.make_nbt(f, name="OrbitFrame")

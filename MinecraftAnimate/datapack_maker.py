@@ -72,12 +72,6 @@ execute at @e[tag=projector] run scoreboard players add @e[tag=projector] frame_
 schedule function animate:play {spf}s"""
 
     make_mcfunct(content, function_path + "play")
-    print(f"{'-Pack setup at': >79}|")
-
-    # Add blank structure
-    structure_path = f"./{name_space}/data/animate/structures/"
-    make_air(size, structure_path)
-    print(f"{'-Added reset structure': >79}|")
-
-    print(f" {function_path+'play': >78}|")
+    print(f"{'-Pack setup at': <79}|")
+    print(f" ./{name_space: <76}|")
     return

@@ -16,18 +16,19 @@ def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_bl
     print('|' + ' '*78 + '|')
 
     # Make Pack
-    print(f"{'--Preparing Datapack': >79}|")
+    print(f"{'--Preparing Datapack': <79}|")
     # - Make new datapack off template
     make_new_pack("./" + pack_name)
     populate_pack(FPS, size, pack_name)
 
     # Get Structures TODO
-    past_colors = {}
+    past_colors = None
+    state = None
     print('|' + ' '*78 + '|')
-    print(f"{'--Rendering Structures': >79}|")
+    print(f"{'--Rendering Structures': <79}|")
     with alive_bar(total_frames) as bar:
         for f in range(total_frames):
-            state = step(f)
+            state = step(f, state)
             # Check if input is alreay in blocknames or needs to be color mapped
             if uses_blockname:
                 frame = state
@@ -40,7 +41,7 @@ def render_datapack(step, pack_name=NAMESPACE, fps=FPS, seconds=SECONDS, uses_bl
 
     print('|' + ' '*78 + '|')
     print(f'[-{datetime.now().strftime("%y/%m/%d-%H:%M:%S"):->76}-]\n')
-    return
+    return frame
 
 
 if __name__ == "__main__":
