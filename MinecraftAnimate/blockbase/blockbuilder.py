@@ -8,7 +8,9 @@ def dist(c1, c2):
 
 
 def get_block_from_color(color):
-    if color == None or sum(color) == 0:
+    if color == None:
+        return "air"
+    elif sum(color) == 0:
         return "structure_void"
 
     block = None
@@ -71,7 +73,7 @@ def blockify(structure, seen_colors=None):
             yslice.append([])
             # Get each pixel
             for z in range(zsize):
-                pixel = structure[y][x]
+                pixel = structure[y][x][z]
                 if pixel not in seen_colors:
                     block_name = get_block_from_color(pixel)
                     seen_colors[pixel] = block_name
