@@ -108,6 +108,11 @@ class BodSystem:
         return frame
 
 
+def get_step():
+    print('hi orbit')
+    return
+
+
 if __name__ == "__main__":
     size = [500, 500]
     s = BodSystem(size)

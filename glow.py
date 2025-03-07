@@ -94,6 +94,11 @@ class Torch:
         return frame
 
 
+def get_step():
+    print('hi glow')
+    return
+
+
 if __name__ == "__main__":
     t = Torch()
 
