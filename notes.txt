@@ -1,0 +1,85 @@
+Screen - 
+    screen size
+    simulation_size
+    # Do these need to be the same?
+    # Having low res sims auto pixelate would be nice
+    # - Pixel size option?
+    Component
+    # If components are stacked, then this is just one with everything in it?
+    loop vs clip screen
+    # % loop visuals or just trim
+
+Component -
+    Points
+    Components = []
+    # For recursive Shapes
+    # - Maybe just add an option or abstraction for collection of components
+    Shader
+    # Default z=0 allows for 3d poly, and eventual shader raytracing or something
+    # - Later ellipse, circle, sphere, etc could be defined though realistically there wont be more than that since polys
+    # -- Will otherwise just be defined this way
+    Filled
+    # Should this be part of the shader
+    # - Otherwise will lines have thickness
+    # -- Fill = 0 for filled and otherwise is line thickness?
+    priority
+    # Descend through priority to overrite set pixels when creating the screen
+
+Shader - 
+    # Something something compile shaders?
+    # save seen pixels or coords?
+    # Just make inheritences for specifics.
+    # Default can just be a solid color.
+    fragment
+    vertex
+
+Colors / Pixel
+    # Not sure how far down to go on this.
+    # When recursive rendering component make stacked 2d arrays stack based on priority
+    # Two modes.
+    UNSET
+    COLOR
+    # Maybe write priority into this as well based on when it was written to allow some overrite method while rendering
+
+
+Gradient
+    # Built in for the sake of animation and or color ranges etc
+
+-TODO-----------------------------------------------------------------
+Equation
+    # Potentially add an equation?
+    # Something to prevent component line ness and true procedural generation
+
+
+
+--- Outdated Notes -----------------------------------------------------------------
+# ====== My implementation ignores these assumptions ======
+
+# Bresenham’s Line Generation 
+# Assumptions : 
+# 1) Line is drawn from left to right. 
+# 2) x1 < x2 and y1 < y2 
+# 3) Slope of the line is between 0 and 1. 
+# We draw a line from lower left to upper right. 
+
+
+
+# function for line generation 
+def bresenham(x1, y1, x2, y2): 
+
+	m_new = 2 * (y2 - y1) 
+	slope_error_new = m_new - (x2 - x1) 
+
+	y = y1 
+	for x in range(x1, x2+1): 
+
+		print("(", x, ",", y, ")\n") 
+
+		# Add slope to increment angle formed 
+		slope_error_new = slope_error_new + m_new 
+
+		# Slope error reached limit, time to 
+		# increment y and update slope error. 
+		if (slope_error_new >= 0): 
+			y = y+1
+			slope_error_new = slope_error_new - 2 * (x2 - x1) 
