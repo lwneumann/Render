@@ -228,5 +228,34 @@ def boneSpreadTest():
     return
 
 
+def phi_test():
+    phi = ( (1+5**0.5)/2 - 1 )
+    size = [200, 200]
+    w = window.Window(size, size)
+    r = 50
+
+    for i in range(5):
+        x = 100 + r * cos(phi * i)
+        y = 100 + r * sin(phi * i)
+        c1 = Circle((x, y), 6, circ_shader=shader.WHITE)
+        c2 = Circle((x, y), 4, circ_shader=shader.BLUE)
+        w.add_components(c1, c2)
+
+    file_maker.array_to_png(w.render(), filename='phiTest5', folder='.')
+    return
+
+
+# -------------
+def FFT_wavegen(theta=0, freq=1, size=[600, 600]):
+    def gp(x, y, theta=0, freq=1):
+        return sin( freq*( x*cos(theta) + y*sin(theta) ) )/2 + 1
+    img = [ [ tuple([max(int(255 * gp(x, y, theta=theta, freq=freq)),0) for _ in range(3)]) for x in range(size[0]) ] for y in range(size[1]) ]
+    return img
+
+def animate_wavegen(i, last_frame=None):
+    # 0 -> 90
+    return FFT_wavegen(theta=i/90, freq=0.5)
+
+
 if __name__ == "__main__":
-    doSpineTest()
+    file_maker.render_video(animate_wavegen)
